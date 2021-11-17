@@ -1,0 +1,7 @@
+ul { width: 800px; text-align: center; }
+
+ul li { padding: 10px 0; }
+
+ul li p { font-size: 20px; height: 30px; line-height: 30px; }
+
+ul li input { width: 100%; font-size: 20px; height: 30px; line-height: 30px; text-align: center; }

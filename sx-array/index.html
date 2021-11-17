@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/mint-ui.css">
+    <link rel="stylesheet" href="./css/index.css">
+
+    <script src="./js/vue.min.2.5.13.js"></script>
+    <script src="./js/mint.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        // 试验操作数组
+        var players = [
+            {name: "滚球兽",state: "幼年期"},
+            {name: "亚古兽",state: "成长期"},
+            {name: "暴龙兽",state: "成熟期"},
+            {name: "机械暴龙兽",state: "完全体"},
+            {name: "战斗暴龙兽",state: "究极体"},
+        ]
+
+        //forEach
+        Array.prototype.sx_forEach = function(callback){
+            for(let i = 0 ; i < this.length ; i++){
+                callback(this[i],i,this);
+            }
+        }
+
+        // players.sx_forEach((item,index,arr)=>{
+        //     console.log(item);
+        //     console.log(index);
+        //     console.log(arr);
+        // });
+
+        //map
+        Array.prototype.sx_map = function(callback){
+            let res = [];
+            for(var i = 0 ; i < this.length ; i++){
+                res.push(callback(this[i],i,this));
+            }
+            return res;
+        }
+
+        // var arr = players.sx_map((item,index)=>{
+        //     console.log(item);
+        //     return item
+        // });
+        // console.log(arr);
+
+        // filter
+        Array.prototype.sx_filter = function(callback){
+            let res = [];
+            for(var i = 0 ; i < this.length ; i++){
+                callback(this[i],i,this) && res.push(this[i])
+            };
+            return res;
+        };
+        // var arr = players.sx_filter((item,index)=>{
+        //     return index > 2;
+        // });
+        // console.log(arr);
+
+        //every
+        
+    </script>
+</body>
+
+</html>
+
