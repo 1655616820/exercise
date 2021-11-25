@@ -68,9 +68,119 @@
         // console.log(arr);
 
         //every
+        Array.prototype.sx_every = function(callback){
+            let flag = true;
+            for(var i = 0 ; i < this.length ; i++){
+                flag = callback(this[i],i,this);
+                if(!flag) break;
+            }
+            return flag;
+        }
+        // console.log(players.sx_every(function(item){
+        //     return item.name == '滚球兽';
+        // }));
         
+        //some
+        Array.prototype.sx_some = function(callback){
+            let flag = true;
+            for(var i = 0 ; i < this.length ; i++){
+                flag = callback(this[i],i,this);
+                if(flag) break;
+            }
+            return flag;
+        }
+
+        // findIndex
+        Array.prototype.sx_findIndex = function(callback){
+            for(var i = 0 ; i < this.length ; i++){
+                if(callback(this[i],i,this)){
+                    return i;
+                }
+            }
+            return -1;
+        }
+        // var result = players.sx_findIndex(function(item){
+        //     return item.name == '战斗暴龙兽';
+        // })
+        // console.log(result);
+
+        // fill
+        Array.prototype.sx_fill = function(value,start = 0,end){
+            end = end || this.length;
+            for(var i = start ; i < end ; i++){
+                this[i] = value;
+            }
+            return this;
+        }
+        // players.sx_fill({name: "加鲁鲁兽",state: "成长期"},1,3);
+        // console.log(players);
+
+        // includes
+        Array.prototype.sx_includes = function(val,start = 0){
+            if(start < 0) start = this.length + start;
+            var isNaN = Number.isNaN(val);
+            for(var i = start ; i < this.length ; i++){
+                if(this[i] === val || (isNaN && Number.isNaN(this[i]) == isNaN)){
+                    return true;
+                }
+            }
+            return false;
+        }
+        // console.log([1, 2, 3].sx_includes(2)) // true
+        // console.log([1, 2, 3, NaN].sx_includes(NaN)) // true
+        // console.log([1, 2, 3].sx_includes(1, 1)) // false
+
+        //join
+        Array.prototype.sx_join = function(s = ','){
+            var str = '';
+            for(var i = 0 ; i < this.length; i++){
+                str = i == 0 ? this[i].name : `${str}${s}${this[i].name}`;
+            }
+            return str;
+        }
+        // console.log(players.sx_join('*'));
+
+        //flat
+        Array.prototype.sx_flat = function(){
+            var arr = this;
+            while(arr.some(item=>Array.isArray(item))){
+                arr = [].concat(...arr);
+            }
+            return arr;
+        }
+        // const testArr = [1, [2, 3, [4, 5]], [8, 9]]
+        // console.log(testArr.sx_flat())
+
+        // splice
+        Array.prototype.sx_splice = function(start,length,...values){
+            if(!length) return [];
+            length = length + start > this.length ? this.length - start : length;
+            const res = [], tempArr = [...this];
+            for(var i = start ; i < start + values.length ;i++){
+                this[i] = values[i-start];
+            }
+            this.length = start + values.length;
+            if(values.length < length){
+                const cha = length - values.length;
+                for(let i = start + values.length ; i < tempArr.length; i++){
+                    this[i] = tempArr[i + cha];
+                }
+                this.length = this.length - cha;
+            }
+            if(values.length > length){
+                for(let i = start + length ; i < tempArr.length ; i++){
+                    this.push(tempArr[i]);
+                }
+            }
+            for(let i = start ; i < start + length ; i++){
+                res.push(tempArr[i]);
+            }
+            return res;
+        }
+        var result = players.sx_splice(0,1,{name: "加鲁鲁兽",state: "成长期"});
+        console.log(result);
+        console.log(players);
     </script>
 </body>
-
 </html>
 
