@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/mint-ui.css">
+    <link rel="stylesheet" href="./css/index.css">
+
+    <script src="./js/vue.min.2.5.13.js"></script>
+    <script src="./js/mint.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        var digimon = {
+            name: "亚古兽",
+            state: "成长期",
+            age: "10000"
+        }
+
+        // sx_entries  将对象转化为数组
+        Object.prototype.sx_entries = function (obj) {
+            const res = [];
+            for (let key in obj) {
+                obj.hasOwnProperty(key) && res.push([key, obj[key]]);
+            }
+            return res;
+        }
+        // console.log(Object.sx_entries(digimon));
+
+
+        // sx_fromEntries   将数组转化为对象
+        Object.prototype.sx_fromEntries = function (arr) {
+            const obj = {};
+            for (let i = 0; i < arr.length; i++) {
+                obj[arr[i][0]] = arr[i][1];
+            }
+            return obj;
+        }
+        // var arr = Object.sx_entries(digimon)
+        // console.log(Object.sx_fromEntries(arr));
+
+        // keys  提取对象的键
+        Object.prototype.sx_keys = function (obj) {
+            const arr = [];
+            for (let key in obj) {
+                obj.hasOwnProperty(key) && arr.push(key);
+            }
+            return arr;
+        }
+        // console.log(Object.sx_keys(digimon));
+
+        // values 提取对象的值
+        Object.prototype.sx_values = function (obj) {
+            const arr = [];
+            for (let key in obj) {
+                obj.hasOwnProperty(key) && arr.push(obj[key]);
+            }
+            return arr;
+        }
+        // console.log(Object.sx_values(digimon));
+
+
+        // instanceOf  判断A是否经过B的原型链
+        Object.prototype.sx_instanceOf = function (father, child) {
+            const fp = father.prototype;
+            var cp = child.__proto__;
+
+            while (cp) {
+                if (cp === fp) {
+                    return true;
+                }
+                cp = cp.__proto__;
+            }
+            return false;
+        }
+        // function Digimon(name,state,age){
+        //     this.name = name;
+        //     this.state = state;
+        //     this.age = age;
+        // }
+        // var digimon2 = new Digimon('加布兽','成长期','10000');
+        // console.log(Object.sx_instanceOf(Digimon,digimon2));
+        // console.log(Object.sx_instanceOf(Digimon,digimon));
+
+        // is 判断两个对象是否相等
+        Object.prototype.sx_is = function (x, y) {
+            if (x === y) {
+                return x !== 0 || 1 / x === 2 / y;
+            }
+            return x !== x && y !== y;
+        }
+        // let a = {txt: "云梦泽的东边"};
+        // let b = a;
+        // let c = {txt: "云梦泽的东边"};
+        // console.log(Object.sx_is(a,b));
+        // console.log(Object.sx_is(a,c));
+
+        // assign 将多个对象合成一个对象
+        Object.prototype.sx_assign = function (target, ...args) {
+            if (target === null || args === undefined) { // 不是很明白
+                throw new TypeError('Cannot convert undefined or null to object');
+            }
+            target = Object(target);
+            for (let nextObj of args) {
+                console.log(nextObj);
+                for (let key in nextObj) {
+                    nextObj.hasOwnProperty(key) && (target[key] = nextObj[key]);
+                }
+            }
+            return target;
+        }
+
+        // console.log(Object.sx_assign(digimon,a));
+    </script>
+</body>
+
+</html>
